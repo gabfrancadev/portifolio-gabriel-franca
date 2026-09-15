@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel Rodrigues França — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12142B;
+    --bg-alt: #191C3B;
+    --panel: #1F2347;
+    --line: #3B3F76;
+    --text: #ECEEFA;
+    --text-muted: #9CA1C9;
+    --gold: #F2B84B;
+    --gold-shadow: #B3812C;
+    --teal: #4FD8C4;
+    --teal-shadow: #2E9788;
+    --coral: #FF6F91;
+    --coral-shadow: #B84D68;
+    --font-display: 'Press Start 2P', monospace;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(79,216,196,0.07), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(242,184,75,0.06), transparent 40%);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  h1,h2,h3{ font-family: var(--font-display); line-height: 1.5; margin: 0; }
+
+  p{ margin: 0 0 1rem; max-width: 62ch; }
+
+  a{ color: var(--teal); }
+
+  img,svg{ display:block; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ---------- NAV ---------- */
+  .menubar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(18,20,43,0.9);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .menubar .wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding-top: .9rem;
+    padding-bottom: .9rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .menubar .brand{
+    font-family: var(--font-display);
+    font-size: .7rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .menu{
+    display:flex;
+    gap: 1.1rem;
+    list-style:none;
+    margin:0; padding:0;
+    flex-wrap: wrap;
+  }
+  .menu a{
+    font-family: var(--font-display);
+    font-size: .55rem;
+    color: var(--text-muted);
+    text-decoration:none;
+    padding: .4rem .2rem;
+    border-bottom: 2px solid transparent;
+  }
+  .menu a:hover{ color: var(--teal); border-bottom-color: var(--teal); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 4.5rem 0 3.5rem;
+    text-align:center;
+    opacity:0;
+    transform: translateY(14px);
+    animation: rise .7s ease-out .1s forwards;
+  }
+  @keyframes rise{ to{ opacity:1; transform:none; } }
+
+  .badge{
+    display:inline-block;
+    font-family: var(--font-display);
+    font-size: .55rem;
+    color: var(--bg);
+    background: var(--gold);
+    padding: .55rem .9rem;
+    border: 2px solid #7a5a1f;
+    box-shadow: 0 3px 0 var(--gold-shadow);
+    margin-bottom: 2rem;
+  }
+
+  .hero h1{
+    font-size: clamp(1.3rem, 4.4vw, 2.1rem);
+    color: var(--text);
+    letter-spacing: .5px;
+  }
+  .hero h1 span{ color: var(--teal); }
+
+  .hero .role{
+    margin-top: 1.1rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin-left:auto; margin-right:auto;
+  }
+
+  .cta-row{
+    margin-top: 2.2rem;
+    display:flex;
+    gap: 1rem;
+    justify-content:center;
+    flex-wrap: wrap;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.55rem;
+    font-family: var(--font-display);
+    font-size: .6rem;
+    text-decoration:none;
+    padding: .95rem 1.3rem;
+    border: 2px solid rgba(0,0,0,.25);
+    cursor:pointer;
+    transition: transform .05s ease;
+    white-space: nowrap;
+  }
+  .btn svg{ width:16px; height:16px; }
+  .btn-gold{ background: var(--gold); color:#1B1E3D; box-shadow: 0 4px 0 var(--gold-shadow); }
+  .btn-teal{ background: var(--teal); color:#0F2A27; box-shadow: 0 4px 0 var(--teal-shadow); }
+  .btn-ghost{ background: transparent; color: var(--text); border-color: var(--line); box-shadow: 0 4px 0 var(--line); }
+  .btn:active{ transform: translateY(4px); box-shadow: 0 0 0 transparent !important; }
+
+  /* ---------- PANELS ---------- */
+  section{ padding: 4.2rem 0; }
+  section + section{ border-top: 1px dashed var(--line); }
+
+  .eyebrow-title{
+    font-size: 1.1rem;
+    margin-bottom: 1.8rem;
+    padding-top: .4rem;
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+    color: var(--text);
+  }
+  .eyebrow-title .tag{
+    font-family: var(--font-display);
+    font-size: .5rem;
+    color: var(--bg);
+    background: var(--teal);
+    padding: .3rem .5rem;
+  }
+
+  .panel{
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 2rem;
+  }
+  .panel::before,.panel::after{
+    content:"";
+    position:absolute;
+    width:16px; height:16px;
+    border-style:solid;
+    border-color: var(--gold);
+    border-width:0;
+  }
+  .panel::before{ top:-1px; left:-1px; border-top-width:3px; border-left-width:3px; }
+  .panel::after{ bottom:-1px; right:-1px; border-bottom-width:3px; border-right-width:3px; }
+
+  /* ---------- STORY ---------- */
+  .story-line{
+    font-family: var(--font-body);
+    color: var(--text);
+    margin-bottom: .9rem;
+  }
+  .story-line b{ color: var(--gold); }
+  .story-prompt{ color: var(--teal); font-family: var(--font-display); font-size:.7rem; margin-right:.6rem; }
+
+  .class-change{
+    margin-top: 1.6rem;
+    padding-top: 1.4rem;
+    border-top: 1px dashed var(--line);
+    display:flex;
+    align-items:center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-family: var(--font-display);
+    font-size: .6rem;
+  }
+  .class-change .from{ color: var(--text-muted); text-decoration: line-through; }
+  .class-change .to{ color: var(--gold); }
+  .class-change .arrow{ color: var(--coral); }
+
+  /* ---------- INVENTORY ---------- */
+  .inventory-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px,1fr));
+    gap: .8rem;
+  }
+  .slot{
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    padding: .95rem .6rem;
+    text-align:center;
+    font-size: .82rem;
+    font-weight:600;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .slot:hover{
+    border-color: var(--teal);
+    animation: flicker .5s ease both;
+  }
+
+  /* ---------- QUEST / MISSION CARDS ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+  .quest{
+    position:relative;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    padding: 1.6rem;
+    display:flex;
+    flex-direction:column;
+    gap:.7rem;
+    transition: border-color .2s ease;
+  }
+  .quest:hover{ border-color: var(--teal); }
+
+  .quest-title{ font-family: var(--font-body); font-weight:700; font-size:1.05rem; }
+
+  .status{
+    align-self:flex-start;
+    font-family: var(--font-display);
+    font-size: .5rem;
+    padding: .4rem .55rem;
+    border: 1px solid currentColor;
+  }
+  .status--done{ color: var(--teal); }
+  .status--live{ color: var(--gold); }
+  .status--locked{ color: var(--coral); }
+
+  .quest p{ font-size: .92rem; color: var(--text-muted); margin-bottom:.4rem; }
+
+  .quest-links{ display:flex; gap: .9rem; flex-wrap:wrap; font-size:.85rem; margin-top:auto; }
+  .quest-links a{ text-decoration:none; border-bottom: 1px solid currentColor; }
+  .locked-note{ font-size:.8rem; color: var(--coral); font-style:italic; margin-top:auto; }
+
+  /* ---------- TRAINING ---------- */
+  .training-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: .85rem; }
+  .training-list li{
+    display:flex;
+    justify-content:space-between;
+    gap: 1rem;
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .training-list .course{ font-weight:600; }
+  .training-list .school{ color: var(--text-muted); font-size:.9rem; }
+
+  /* ---------- LANGUAGES ---------- */
+  .lang-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
+  .lang-card{ background: var(--bg-alt); border:1px solid var(--line); padding:1.1rem 1.3rem; }
+  .lang-card .name{ font-weight:700; }
+  .lang-card .level{ color: var(--teal); font-size:.85rem; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 3rem 0 4rem;
+    text-align:center;
+    border-top: 1px solid var(--line);
+    margin-top: 2rem;
+  }
+  footer .foot-links{
+    display:flex; gap:1.3rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.4rem;
+  }
+  footer .foot-links a{ text-decoration:none; font-weight:600; }
+  footer .credit{ color: var(--text-muted); font-size:.85rem; }
+
+  /* ---------- FLICKER KEYFRAMES ---------- */
+  @keyframes flicker{
+    0%   { opacity: 1; }
+    20%  { opacity: .15; }
+    35%  { opacity: 1; }
+    50%  { opacity: .25; }
+    65%  { opacity: 1; }
+    80%  { opacity: .4; }
+    100% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero, .slot:hover{ animation:none !important; transform:none !important; }
+  }
+
+  @media (max-width: 640px){
+    .cta-row{ flex-direction:column; align-items:stretch; }
+    .btn{ justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="menubar">
+  <div class="wrap">
+    <span class="brand">GRF://PORTFOLIO</span>
+    <ul class="menu">
+      <li><a href="#story">HISTÓRIA</a></li>
+      <li><a href="#experience">EXPERIÊNCIA</a></li>
+      <li><a href="#inventory">SKILLS</a></li>
+      <li><a href="#quests">PROJETOS</a></li>
+      <li><a href="#missions">SAAS</a></li>
+      <li><a href="#training">CURSOS</a></li>
+      <li><a href="#contact">CONTATO</a></li>
+    </ul>
+  </div>
+</div>
+
+<header class="hero wrap">
+  <span class="badge">★ NEW GAME +</span>
+  <h1>GABRIEL RODRIGUES <span>FRANÇA</span></h1>
+  <p class="role">Full Stack Developer em formação — construindo interfaces, APIs e sistemas do zero ao deploy.</p>
+  <div class="cta-row">
+    <a class="btn btn-gold" href="https://github.com/gabfrancadev" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.53 10.53 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+      GITHUB
+    </a>
+    <a class="btn btn-teal" href="https://linkedin.com/in/gabrielfrancadev/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+      LINKEDIN
+    </a>
+    <a class="btn btn-ghost" href="mailto:gabfrancadev@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>
+      EMAIL
+    </a>
+  </div>
+</header>
+
+<section id="story" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">01</span> Origem do Personagem</h2>
+  <div class="panel">
+    <p class="story-line"><span class="story-prompt">&gt;</span>Formado em <b>Odontologia pela UPE</b>, passei anos treinando outra profissão — até decidir migrar de rota.</p>
+    <p class="story-line"><span class="story-prompt">&gt;</span>Hoje persigo o sonho de ser <b>desenvolvedor de software</b>: troquei a cadeira do consultório pelo teclado.</p>
+    <p class="story-line"><span class="story-prompt">&gt;</span>Sigo estudando Análise e Desenvolvimento de Sistemas e construindo projetos reais, do zero ao deploy.</p>
+    <div class="class-change">
+      <span class="from">DENTISTA</span>
+      <span class="arrow">→</span>
+      <span class="to">FULL STACK DEVELOPER</span>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">02</span> Guild History — Experiência</h2>
+  <div class="card-grid">
+
+    <article class="quest">
+      <span class="status status--live">⚡ ATIVO</span>
+      <h3 class="quest-title">Analista de Tráfego — Speedmais</h3>
+      <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:0;">Setembro/2026 – Atual</p>
+      <p>Monitoramento e resolução de ocorrências (BOs) em tempo real, atuando em todo o ciclo do pedido — desde a criação até a entrega ao cliente — garantindo cumprimento de prazos e fluidez operacional.</p>
+    </article>
+
+    <article class="quest">
+      <span class="status status--done">✓ CONCLUÍDA</span>
+      <h3 class="quest-title">Suporte Técnico — Clínica Ortoestética Igarassu</h3>
+      <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:0;">Setembro/2025 – Setembro/2026</p>
+      <p>Suporte técnico geral da clínica, atuando na resolução de problemas de sistemas, equipamentos e infraestrutura de TI do dia a dia, garantindo o bom funcionamento das operações.</p>
+    </article>
+
+  </div>
+</section>
+
+<section id="inventory" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">03</span> Inventário</h2>
+  <div class="inventory-grid">
+    <div class="slot">JavaScript</div>
+    <div class="slot">TypeScript</div>
+    <div class="slot">Python</div>
+    <div class="slot">React</div>
+    <div class="slot">Next.js</div>
+    <div class="slot">Node.js</div>
+    <div class="slot">Java</div>
+    <div class="slot">Spring Boot</div>
+    <div class="slot">HTML</div>
+    <div class="slot">CSS</div>
+    <div class="slot">SQL</div>
+    <div class="slot">Git</div>
+    <div class="slot">AWS</div>
+  </div>
+</section>
+
+<section id="quests" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">04</span> Quest Log — Projetos Acadêmicos</h2>
+  <div class="card-grid">
+
+    <article class="quest">
+      <span class="status status--done">✓ CONCLUÍDA</span>
+      <h3 class="quest-title">Animais Fantásticos</h3>
+      <p>Aplicação web interativa com manipulação de DOM, navegação por abas, accordion e animações on scroll. Estrutura modular em JavaScript (ES6+).</p>
+      <div class="quest-links">
+        <a href="https://github.com/gabfrancadev/animais-fantasticos" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://gabfrancadev.github.io/animais-fantasticos/" target="_blank" rel="noopener">Jogar / Ver deploy</a>
+      </div>
+    </article>
+
+    <article class="quest">
+      <span class="status status--locked">🔒 EM DESENVOLVIMENTO</span>
+      <h3 class="quest-title">Dogs</h3>
+      <p>Rede social para amantes de cães, construída em React — feed de fotos, posts, comentários, curtidas e autenticação. Ainda em polimento antes do lançamento oficial.</p>
+      <div class="quest-links">
+        <a href="https://github.com/gabfrancadev/dogs-react" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <span class="locked-note">Deploy: em breve</span>
+    </article>
+
+  </div>
+</section>
+
+<section id="missions" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">05</span> Missões SaaS</h2>
+  <div class="card-grid">
+
+    <article class="quest">
+      <span class="status status--live">⚡ LIVE</span>
+      <h3 class="quest-title">EasyCleanQuote</h3>
+      <p>Plataforma SaaS completa para empresas de limpeza nos EUA, com agendamento inteligente, controle financeiro e automação de aquisição de clientes. Em produção, com clientes reais ativos.</p>
+      <div class="quest-links">
+        <a href="https://easycleanquote.com/" target="_blank" rel="noopener">Visitar site</a>
+      </div>
+    </article>
+
+    <article class="quest">
+      <span class="status status--locked">🔒 EM BREVE</span>
+      <h3 class="quest-title">Gestão para Clínicas Odontológicas</h3>
+      <p>Sistema de gestão para clínicas, no estilo Clinicorp — agendamentos, faturamento e migração de dados de outros sistemas, com versões web e app.</p>
+      <span class="locked-note">Em construção com um parceiro</span>
+    </article>
+
+    <article class="quest">
+      <span class="status status--locked">🔒 EM BREVE</span>
+      <h3 class="quest-title">PDV de Bebidas</h3>
+      <p>Sistema de ponto de venda para distribuidoras de bebidas, com integração à maquineta para reconhecer automaticamente pagamentos via Pix e cartão.</p>
+      <span class="locked-note">Projeto sob encomenda</span>
+    </article>
+
+  </div>
+</section>
+
+<section id="training" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">06</span> Training Grounds</h2>
+  <div class="panel">
+    <ul class="training-list">
+      <li><span class="course">CS50 – Introduction to Computer Science</span><span class="school">Harvard University</span></li>
+      <li><span class="course">The Odin Project — Foundations</span><span class="school">HTML, CSS, JavaScript, Git</span></li>
+      <li><span class="course">AWS Skill Builder</span><span class="school">Amazon Web Services</span></li>
+      <li><span class="course">React, Node.js & Next.js</span><span class="school">Origamid</span></li>
+      <li><span class="course">Java com IA (Bootcamp)</span><span class="school">DIO</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="languages" class="wrap">
+  <h2 class="eyebrow-title"><span class="tag">07</span> Idiomas</h2>
+  <div class="lang-grid">
+    <div class="lang-card"><div class="name">Inglês</div><div class="level">Fluente</div></div>
+    <div class="lang-card"><div class="name">Espanhol</div><div class="level">Intermediário</div></div>
+    <div class="lang-card"><div class="name">Italiano</div><div class="level">Intermediário</div></div>
+  </div>
+</section>
+
+<footer id="contact" class="wrap">
+  <div class="foot-links">
+    <a href="https://github.com/gabfrancadev" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/gabrielfrancadev/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:gabfrancadev@gmail.com">gabfrancadev@gmail.com</a>
+  </div>
+  <p class="credit">Gabriel Rodrigues França — sempre carregando o próximo save.</p>
+</footer>
+
+</body>
+</html>
